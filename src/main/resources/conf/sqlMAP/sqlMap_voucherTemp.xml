@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="VoucherTemp">
+	<sql id="SelectVoucherTempList">
+		 <![CDATA[
+		    SELECT 	ID,                   
+				   COMPANY_ID,         
+				   IMAGE_SRC,            
+				   BUTTON_IMAGE
+			FROM   VOUCHER_TEMP
+			WHERE  ( 1 = 1 )
+			<#if id?exists && id!="">
+			  And ID=:id
+			</#if>
+			<#if companyId?exists && companyId!="">
+			  And COMPANY_ID=:companyId
+			</#if>
+			<#if imageSrc?exists && imageSrc!="">
+			  And IMAGE_SRC=:imageSrc
+			</#if>
+			<#if buttonImage?exists && buttonImage!="">
+			  And BUTTON_IMAGE=:buttonImage
+			</#if>
+			<#if oderbyField?exists && oderbyField!="">
+			  Order by ${oderbyField}
+			</#if>
+			<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+			  ${oderbyAscOrDesc}	
+			</#if>
+		]]>
+	</sql>
+	<sql id="DeleteVoucherTemp" >
+		<![CDATA[
+			DELETE FROM VOUCHER_TEMP
+			WHERE  ID = :id
+		]]>
+	</sql>
+	<sql id="AddVoucherTemp">
+		<![CDATA[
+			INSERT INTO VOUCHER_TEMP
+			            (ID,                   
+					   COMPANY_ID,         
+					   IMAGE_SRC,            
+					   BUTTON_IMAGE)
+			VALUES      ( :id,
+			              :companyId,
+			              :imageSrc,
+			              :buttonImage) 
+         ]]>
+	</sql>
+	<sql id="UpdateVoucherTemp">
+		<![CDATA[
+			UPDATE VOUCHER_TEMP
+			SET    COMPANY_ID = :companyId,
+			       IMAGE_SRC = :imageSrc,
+			       BUTTON_IMAGE = :buttonImage
+			WHERE  ID = :id
+		]]>
+	</sql>
+</sqlMap>

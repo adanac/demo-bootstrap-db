@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="PubNumPageTemp">
+	<sql id="SelectPubNumPageTempList">
+		 <![CDATA[
+		    SELECT ID,
+		       PUBNUM_NUM,
+		       TEMP_NAME,
+		       DES,
+		       POSITION,
+		       STATUS
+			FROM   PUBNUM_PAGE_TEMP
+			WHERE  ( 1 = 1 )
+			<#if id?exists && id!="">
+			  And ID=:id
+			</#if>
+			<#if pubnumNum?exists && pubnumNum!="">
+			  And PUBNUM_NUM=:pubnumNum
+			</#if>
+			<#if tempName?exists && tempName!="">
+			  And TEMP_NAME=:tempName
+			</#if>
+			<#if des?exists && des!="">
+			  And DES=:des
+			</#if>
+			<#if position?exists && position!="">
+			  And POSITION=:position
+			</#if>
+			<#if status?exists && status!="">
+			  And STATUS=:status
+			</#if>
+			<#if oderbyField?exists && oderbyField!="">
+			  Order by ${oderbyField}
+			</#if>
+			<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+			  ${oderbyAscOrDesc}	
+			</#if>
+		]]>
+	</sql>
+	<sql id="DeletePubNumPageTemp" >
+		<![CDATA[
+			DELETE FROM PUBNUM_PAGE_TEMP
+			WHERE  ID = :id
+		]]>
+	</sql>
+	<sql id="AddPubNumPageTemp">
+		<![CDATA[
+			INSERT INTO PUBNUM_PAGE_TEMP
+			            (PUBNUM_NUM,
+		       			TEMP_NAME,
+		       			DES,
+				       	POSITION,
+				       	STATUS)
+			VALUES      ( :pubnumNum,
+			              :tempName,
+			              :des,
+			              :position,
+			              :status) 
+         ]]>
+	</sql>
+	<sql id="UpdatePubNumPageTemp">
+		<![CDATA[
+			UPDATE PUBNUM_PAGE_TEMP
+			SET    PUBNUM_NUM = :pubnumNum,
+			       TEMP_NAME = :tempName,
+			       DES = :des,
+			       POSITION = :position,
+			       STATUS = :status
+			WHERE  ID = :id
+		]]>
+	</sql>	
+	<sql id="SelectPubNumAdList">
+		 <![CDATA[
+		    SELECT ID,
+		       PAGETEMP_ID,
+		       PLAY_MODE,
+		       IMAGE_SRC,
+		       LINK,
+		       IMG_ORDER
+			FROM   PUBNUM_AD
+			WHERE  ( 1 = 1 )
+			<#if id?exists && id!="">
+			  And ID=:id
+			</#if>
+			<#if pageTempId?exists && pageTempId!="">
+			  And PAGETEMP_ID=:pageTempId
+			</#if>
+			<#if playMode?exists && playMode!="">
+			  And PLAY_MODE=:playMode
+			</#if>
+			<#if imageSrc?exists && imageSrc!="">
+			  And IMAGE_SRC=:imageSrc
+			</#if>
+			<#if link?exists && link!="">
+			  And LINK=:link
+			</#if>
+			<#if imgOrder?exists && imgOrder!="">
+			  And IMG_ORDER=:imgOrder
+			</#if>
+			<#if oderbyField?exists && oderbyField!="">
+			  Order by ${oderbyField}
+			</#if>
+			<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+			  ${oderbyAscOrDesc}	
+			</#if>
+		]]>
+	</sql>
+	<sql id="DeletePubNumAd" >
+		<![CDATA[
+			DELETE FROM PUBNUM_AD
+			WHERE  ID = :id
+		]]>
+	</sql>
+	<sql id="AddPubNumAd">
+		<![CDATA[
+			INSERT INTO PUBNUM_AD
+			            (PAGETEMP_ID,
+		       			PLAY_MODE,
+		       			IMAGE_SRC,
+				       	LINK,
+				       	IMG_ORDER)
+			VALUES      ( :pageTempId,
+			              :playMode,
+			              :imageSrc,
+			              :link,
+			              :imgOrder) 
+         ]]>
+	</sql>
+	<sql id="UpdatePubNumAd">
+		<![CDATA[
+			UPDATE PUBNUM_AD
+			SET   
+			       PLAY_MODE = :playMode,
+			       IMAGE_SRC = :imageSrc,
+			       LINK = :link,
+			       IMG_ORDER = :imgOrder
+			WHERE  ID = :id
+		]]>
+	</sql>
+	<sql id="SelectPubNumActivityList">
+		 <![CDATA[
+		    SELECT ID,
+		       PAGETEMP_ID,
+		       MSTYLE,
+		       IMAGE_SRC,
+		       LINK,
+		       POSITION
+			FROM   PUBNUM_ACTIVITY
+			WHERE  ( 1 = 1 )
+			<#if id?exists && id!="">
+			  And ID=:id
+			</#if>
+			<#if pageTempId?exists && pageTempId!="">
+			  And PAGETEMP_ID=:pageTempId
+			</#if>
+			<#if mStyle?exists && mStyle!="">
+			  And MSTYLE=:mStyle
+			</#if>
+			<#if imageSrc?exists && imageSrc!="">
+			  And IMAGE_SRC=:imageSrc
+			</#if>
+			<#if link?exists && link!="">
+			  And LINK=:link
+			</#if>
+			<#if position?exists && position!="">
+			  And POSITION=:position
+			</#if>
+			<#if oderbyField?exists && oderbyField!="">
+			  Order by ${oderbyField}
+			</#if>
+			<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+			  ${oderbyAscOrDesc}	
+			</#if>
+		]]>
+	</sql>
+	<sql id="DeletePubNumActivity" >
+		<![CDATA[
+			DELETE FROM PUBNUM_ACTIVITY
+			WHERE  ID = :id
+		]]>
+	</sql>
+	<sql id="AddPubNumActivity">
+		<![CDATA[
+			INSERT INTO PUBNUM_ACTIVITY
+			            ( PAGETEMP_ID,
+				       MSTYLE,
+				       IMAGE_SRC,
+				       LINK,
+				       POSITION)
+			VALUES      ( :pageTempId,
+			              :mStyle,
+			              :imageSrc,
+			              :link,
+			              :position) 
+         ]]>
+	</sql>
+	<sql id="UpdatePubNumActivity">
+		<![CDATA[
+			UPDATE PUBNUM_ACTIVITY
+			SET    
+			       MSTYLE = :mStyle,
+			       IMAGE_SRC = :imageSrc,
+			       LINK = :link,
+			       POSITION = :position
+			WHERE  ID = :id
+		]]>
+	</sql>
+	<sql id="DeleteAllPubNumActivity" >
+		<![CDATA[
+			DELETE FROM PUBNUM_ACTIVITY
+			WHERE  PAGETEMP_ID = :pageTempId
+		]]>
+	</sql>
+	<sql id="DeleteAllPubNumAd" >
+		<![CDATA[
+			DELETE FROM PUBNUM_AD
+			WHERE  PAGETEMP_ID = :pageTempId
+		]]>
+	</sql>
+</sqlMap>

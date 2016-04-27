@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="ServiceApplyLog">
+	<sql id="SelectServiceApplyLogList">
+		 <![CDATA[
+		    SELECT ID,
+		       COMPANY_ID,
+		       CARD_NAME,
+		       CARD_IMAGE_SRC
+			FROM   SERVICE_APPLY_LOG
+			WHERE  ( 1 = 1 )
+			<#if id?exists && id!="">
+			  And ID=:id
+			</#if>
+			<#if companyId?exists && companyId!="">
+			  And COMPANY_ID=:companyId
+			</#if>
+			<#if cardName?exists && cardName!="">
+			  And CARD_NAME=:cardName
+			</#if>
+			<#if cardImageSrc?exists && cardImageSrc!="">
+			  And CARD_IMAGE_SRC=:cardImageSrc
+			</#if>
+			<#if oderbyField?exists && oderbyField!="">
+			  Order by ${oderbyField}
+			</#if>
+			<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+			  ${oderbyAscOrDesc}	
+			</#if>
+		]]>
+	</sql>
+	<sql id="DeleteServiceApplyLog" >
+		<![CDATA[
+			DELETE FROM SERVICE_APPLY_LOG
+			WHERE  ID = :id
+		]]>
+	</sql>
+	<sql id="AddServiceApplyLog">
+		<![CDATA[
+			INSERT INTO SERVICE_APPLY_LOG
+			            (APPLY_ID,
+			             STATUS,
+			             APPROVAL_ID,
+			             APPROVAL_NAME,
+			             APPROVAL_DATE,
+			             APPROVAL_REMARK)
+			VALUES      ( :applyId,
+			              :status,
+			              :approvalId,
+			              :approvalName,
+			              :approvalDate,
+			              :approvalRemark) 
+         ]]>
+	</sql>
+	<sql id="UpdateServiceApplyLog">
+		<![CDATA[
+			UPDATE SERVICE_APPLY_LOG
+			SET    COMPANY_ID = :companyId,
+			       CARD_NAME = :cardName,
+			       CARD_IMAGE_SRC = :cardImageSrc
+			WHERE  ID = # {id,jdbcType=BIGINT} 
+		]]>
+	</sql>
+</sqlMap>

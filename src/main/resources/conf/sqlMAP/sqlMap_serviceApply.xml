@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="ServiceApply">
+	<sql id="SelectServiceApplyList">
+		 <![CDATA[
+		    SELECT ID,
+		       COMPANY_ID,
+		       COMPANY_NAME,
+		       SERVICE_TYPE,
+		       STATUS,
+		       APPLY_DATE,
+		       REMARK,
+		       APPROVAL_ID,
+		       APPROVAL_NAME,
+		       APPROVAL_DATE
+			FROM   SERVICE_APPLY
+			WHERE  ( 1 = 1 )
+			<#if id?exists && id!="">
+			  And ID=:id
+			</#if>
+			<#if companyId?exists && companyId!="">
+			  And COMPANY_ID=:companyId
+			</#if>
+			<#if companyName?exists && companyName!="">
+			  And COMPANY_NAME=:companyName
+			</#if>
+			<#if serviceType?exists && serviceType!="">
+			  And SERVICE_TYPE=:serviceType
+			</#if>
+			<#if status?exists && status!=-1>
+			  And STATUS in(${status})
+			</#if>
+			<#if applyDate?exists && applyDate!="">
+			  And APPLY_DATE=:applyDate
+			</#if>
+			<#if remark?exists && remark!="">
+			  And REMARK=:remark
+			</#if>
+			<#if approvalId?exists && approvalId!="">
+			  And APPROVAL_ID=:approvalId
+			</#if>
+			<#if approvalName?exists && approvalName!="">
+			  And APPROVAL_NAME=:approvalName
+			</#if>
+			<#if approvalDate?exists && approvalDate!="">
+			  And APPROVAL_DATE=:approvalDate
+			</#if>
+			<#if oderbyField?exists && oderbyField!="">
+			  Order by ${oderbyField}
+			</#if>
+			<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+			  ${oderbyAscOrDesc}	
+			</#if>
+		]]>
+	</sql>
+	<sql id="DeleteServiceApply" >
+		<![CDATA[
+			DELETE FROM SERVICE_APPLY
+			WHERE  ID = :id
+		]]>
+	</sql>
+	<sql id="AddServiceApply">
+		<![CDATA[
+			INSERT INTO SERVICE_APPLY
+			            (
+		       COMPANY_ID,
+		       COMPANY_NAME,
+		       SERVICE_TYPE,
+		       STATUS,
+		       APPLY_DATE,
+		       REMARK,
+		       APPROVAL_ID,
+		       APPROVAL_NAME,
+		       APPROVAL_DATE)
+			VALUES      ( :companyId,
+			              :companyName,
+			              :serviceType,
+			              :status,
+			              :applyDate,
+			              :remark,
+			              :approvalId,
+			              :approvalName,
+			              :approvalDate) 
+         ]]>
+	</sql>
+	<sql id="UpdateServiceApply">
+		<![CDATA[
+			UPDATE SERVICE_APPLY
+			SET    COMPANY_ID = :companyId,
+			       COMPANY_NAME = :companyName,
+			       SERVICE_TYPE = :serviceType,
+			       STATUS = :status,
+			       APPLY_DATE = :applyDate,
+			       REMARK = :remark,
+			       APPROVAL_ID = :approvalId,
+			       APPROVAL_NAME = :approvalName,
+			       APPROVAL_DATE = :approvalDate
+			WHERE  ID = :id
+		]]>
+	</sql>
+</sqlMap>

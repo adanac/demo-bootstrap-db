@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="Menu">
+	<sql id="SelectMenuList">
+		 <![CDATA[
+		    SELECT ID,
+		       PARENT_ID,
+		       PUBNUM_NUM,
+		       MENU_NAME,
+		       EVENT_TYPE,
+		       MENU_LINK,
+		       MENU_ORDER,
+		       REMARK
+			FROM   MENU
+			WHERE  ( 1 = 1 )
+			<#if id?exists && id!="">
+			  And ID=:id
+			</#if>
+			<#if parentId?exists && parentId!="">
+			  And PARENT_ID=:parentId
+			</#if>
+			<#if pubnumNum?exists && pubnumNum!="">
+			  And PUBNUM_NUM=:pubnumNum
+			</#if>
+			<#if menuName?exists && menuName!="">
+			  And MENU_NAME=:menuName
+			</#if>
+			<#if eventType?exists && eventType!="">
+			  And EVENT_TYPE=:eventType
+			</#if>
+			<#if menuLink?exists && menuLink!="">
+			  And MENU_LINK=:menuLink
+			</#if>
+			<#if menuOrder?exists && menuOrder!="">
+			  And MENU_ORDER=:menuOrder
+			</#if>
+			<#if remark?exists && remark!="">
+			  And REMARK=:remark
+			</#if>
+			<#if oderbyField?exists && oderbyField!="">
+			  Order by ${oderbyField}
+			</#if>
+			<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+			  ${oderbyAscOrDesc}	
+			</#if>
+		]]>
+	</sql>
+	<sql id="DeleteMenu" >
+		<![CDATA[
+			DELETE FROM MENU
+			WHERE  ID = :id or PARENT_ID=:id
+		]]>
+	</sql>
+	<sql id="AddMenu">
+		<![CDATA[
+			INSERT INTO MENU
+			            (PARENT_ID,
+			             PUBNUM_NUM,
+			             MENU_NAME,
+			             EVENT_TYPE,
+			             MENU_LINK,
+			             MENU_ORDER,
+			             REMARK)
+			VALUES      ( :parentId,
+			              :pubnumNum,
+			              :menuName,
+			              :eventType,
+			              :menuLink,
+			              :menuOrder,
+			              :remark
+			              ) 
+         ]]>
+	</sql>
+	<sql id="UpdateMenu">
+		<![CDATA[
+			UPDATE MENU
+			SET    PARENT_ID = :parentId,
+			       PUBNUM_NUM = :pubnumNum,
+			       MENU_NAME = :menuName,
+			       EVENT_TYPE = :eventType,
+			       MENU_LINK = :menuLink,
+			       MENU_ORDER = :menuOrder,
+			       REMARK = :remark
+			WHERE  ID = :id
+		]]>
+	</sql>
+</sqlMap>

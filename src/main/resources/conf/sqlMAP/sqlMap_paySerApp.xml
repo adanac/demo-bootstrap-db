@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="PaySerApp">
+	<!--新增三方支付服务申请 -->
+	<sql id="AddPaySerApp">
+    	<![CDATA[
+				INSERT INTO PAY_SERVICE_APPLY
+				(
+					APPLYNO,
+					STATUS,
+					MERCODE,
+					MERNAME,
+					SERVICECODE,
+					SERVICENAME,
+					APPLYUSERID,
+					APPLYUSERNAME,
+					APPLYDATE,
+					APPROVER,
+					APPROVERNAME,
+					APPROVALDATE,
+					REMARK,
+					ALIASES
+				
+				)
+				values
+				(
+					:mapplyNo,
+					:status,
+					:merCode,
+					:merName,
+					:serviceCode,
+					:serviceName,
+					:applyUserId,
+					:applyUserName,
+					:applyDate,
+					:approver,
+					:approverName,
+					:approvalDate,
+					:remark,
+					:aliases
+				)
+		]]>
+	</sql>
+	
+	<!--修改三方支付服务申请 -->
+	<sql id="ModifyPaySerApp">
+    	<![CDATA[
+				UPDATE PAY_SERVICE_APPLY
+				SET
+					STATUS=:status,
+					APPROVER=:approver,
+					APPROVERNAME=:approverName,
+					APPROVALDATE=:approvalDate,
+					REMARK=:remark,
+					ALIASES=:aliases
+				WHERE APPLYNO=:applyNo
+		]]>
+	</sql>
+</sqlMap>

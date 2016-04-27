@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="PaySerAppAlip">
+	<!--增加三方支付服务申请 -->
+	<sql id="AddPaySerAppAlip">
+    	<![CDATA[
+				INSERT INTO PAY_SERVICE_APPLY_ALIPAY
+				(
+					APPLYNO,
+					PAYID,
+					ACCOUNT,
+					HOUSENUMPHOTO,
+					DOORPHOTO,
+					INTERPHOTO,
+					REALPHOTO1,
+					REALPHOTO2,
+					REALPHOTO3,
+					COMPNAME,
+					ADDRESS,
+					POSTCODE,
+					CAPITAL,
+					EMPNUMBER,
+					BUSAREA,
+					CONTACT,
+					MOBILE,
+					EMAIL
+				)
+				values
+				(
+					:applyNo,
+					:payId,
+					:account,
+					:houseNumPhoto,
+					:doorPhoto,
+					:interPhoto,
+					:realPhoto1,
+					:realPhoto2,
+					:realPhoto3,
+					:compName,
+					:address,
+					:postCode,
+					:capital,
+					:empNumber,
+					:busArea,
+					:contact,
+					:mobile,
+					:email
+				)
+				
+		]]>
+	</sql>
+	
+	<!--修改三方支付服务支付宝申请 -->
+	<sql id="ModifyPaySerAppAlip">
+    	<![CDATA[
+				UPDATE PAY_SERVICE_APPLY_ALIPAY
+			    SET
+					PAYID=:payId,
+					HOUSENUMPHOTO=:houseNumPhoto,
+					DOORPHOTO=:doorPhoto,
+					INTERPHOTO=:interPhoto,
+					REALPHOTO1=:realPhoto1,
+					REALPHOTO3=:realPhoto3,
+					REALPHOTO2=:realPhoto2,
+					MOBILE=:mobile
+                 WHERE ID=:id	
+		]]>
+	</sql>
+	
+	 <!--查询单个三方支付服务支付宝申请列表-->
+	<sql id="FindPaySerAppAlipById">
+    	<![CDATA[
+				SELECT 
+				    p.ID as id,
+					p.APPLYNO as applyNo,
+					p.PAYID as payId,
+					p.ACCOUNT as account,
+					p.HOUSENUMPHOTO as houseNumPhoto,
+					p.DOORPHOTO as doorPhoto,
+					p.INTERPHOTO as interPhoto,
+					p.REALPHOTO1 as realPhoto1,
+					p.REALPHOTO2 as realPhoto2,
+					p.REALPHOTO3 as realPhoto3,
+					p.COMPNAME as compName,
+					p.ADDRESS as address,
+					p.POSTCODE as postCode,
+					p.CAPITAL as capital,
+					p.EMPNUMBER as empNumber,
+					p.BUSAREA as busArea,
+					p.CONTACT as contact,
+					p.MOBILE as mobile,
+					p.EMAIL as email,
+					m.STATUS as status,
+					m.MERCODE as merCode,
+					m.MERNAME as merName,
+					m.SERVICECODE as serviceCode,
+					m.SERVICENAME as serviceName,
+					m.APPLYUSERID as applyUserId,
+					m.applyUserName as applyUserName,
+					m.APPLYDATE as applyDate,
+					m.APPROVER as approver,
+					m.approverName as approverName,
+					m.APPROVALDATE as approvalDate,
+					m.REMARK as remark,
+					m.ALIASES as aliases
+				FROM PAY_SERVICE_APPLY_ALIPAY p
+				LEFT JOIN PAY_SERVICE_APPLY m on p.APPLYNO=m.APPLYNO	
+				WHERE  p.ID=:id	
+		]]>
+	</sql>
+	
+	<!--查询单个三方支付服务支付宝申请个数-->
+	<sql id="FindPaySerAppAlipCount">
+    	<![CDATA[
+				SELECT 
+				   count(1)
+				FROM PAY_SERVICE_APPLY_ALIPAY
+				WHERE  ACCOUNT=:Account	
+		]]>
+	</sql>
+	
+	<!--根据支付宝账号查询单个三方支付服务支付宝申请-->
+	<sql id="FindPaySerAppAlipListByAccount">
+    	<![CDATA[
+				SELECT distinct 
+				    p.ID as id, 
+					p.APPLYNO as applyNo,
+					p.PAYID as payId,
+					p.ACCOUNT as account,
+					p.HOUSENUMPHOTO as houseNumPhoto,
+					p.DOORPHOTO as doorPhoto,
+					p.INTERPHOTO as interPhoto,
+					p.REALPHOTO1 as realPhoto1,
+					p.REALPHOTO2 as realPhoto2,
+					p.REALPHOTO3 as realPhoto3,
+					p.COMPNAME as compName,
+					p.ADDRESS as address,
+					p.POSTCODE as postCode,
+					p.CAPITAL as capital,
+					p.EMPNUMBER as empNumber,
+					p.BUSAREA as busArea,
+					p.CONTACT as contact,
+					p.MOBILE as mobile,
+					p.EMAIL as email,
+					m.STATUS as status,
+					m.MERCODE as merCode,
+					m.MERNAME as merName,
+					m.SERVICECODE as serviceCode,
+					m.SERVICENAME as serviceName,
+					m.APPLYUSERID as applyUserId,
+					m.applyUserName as applyUserName,
+					m.APPLYDATE as applyDate,
+					m.APPROVER as approver,
+					m.approverName as approverName,
+					m.APPROVALDATE as approvalDate,
+					m.REMARK as remark,
+					m.ALIASES as aliases
+				FROM PAY_SERVICE_APPLY_ALIPAY p
+				LEFT JOIN PAY_SERVICE_APPLY m on p.APPLYNO=m.APPLYNO	
+				WHERE p.ACCOUNT=:Account
+				
+		]]>
+	</sql>
+	
+	<!--获取三方支付服务支付宝申请列表-->
+	<sql id="SelectPaySerAppAlipList">
+    	<![CDATA[
+				SELECT distinct 
+				    p.ID as id, 
+					p.APPLYNO as applyNo,
+					p.PAYID as payId,
+					p.ACCOUNT as account,
+					p.HOUSENUMPHOTO as houseNumPhoto,
+					p.DOORPHOTO as doorPhoto,
+					p.INTERPHOTO as interPhoto,
+					p.REALPHOTO1 as realPhoto1,
+					p.REALPHOTO2 as realPhoto2,
+					p.REALPHOTO3 as realPhoto3,
+					p.COMPNAME as compName,
+					p.ADDRESS as address,
+					p.POSTCODE as postCode,
+					p.CAPITAL as capital,
+					p.EMPNUMBER as empNumber,
+					p.BUSAREA as busArea,
+					p.CONTACT as contact,
+					p.MOBILE as mobile,
+					p.EMAIL as email,
+					m.STATUS as status,
+					m.MERCODE as merCode,
+					m.MERNAME as merName,
+					m.SERVICECODE as serviceCode,
+					m.SERVICENAME as serviceName,
+					m.APPLYUSERID as applyUserId,
+					m.applyUserName as applyUserName,
+					m.APPLYDATE as applyDate,
+					m.APPROVER as approver,
+					m.approverName as approverName,
+					m.APPROVALDATE as approvalDate,
+					m.REMARK as remark,
+					m.ALIASES as aliases
+				FROM PAY_SERVICE_APPLY_ALIPAY p
+				LEFT JOIN PAY_SERVICE_APPLY m on p.APPLYNO=m.APPLYNO	
+				WHERE (1=1)
+				<#if status?exists && status!="">
+				  and m.STATUS=:status
+				</#if>
+				<#if account?exists && account!="">
+				  and p.ACCOUNT=:account
+				</#if>
+				<#if merCode?exists && merCode!="">
+				  and m.MERCODE=:merCode
+				</#if>
+				<#if oderbyField?exists && oderbyField!="">
+				  Order by ${oderbyField}
+				</#if>
+				<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+				  ${oderbyAscOrDesc}	
+				</#if>
+		]]>
+	</sql>
+
+</sqlMap>

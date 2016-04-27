@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="PaySerAppr">
+	<!--新增支付服务申请审批记录 -->
+	<sql id="AddPaySerAppr">
+    	<![CDATA[
+				insert into PAY_SERVICE_APPLY_APPROVAL
+				(
+					APPLYNO,
+					APPLYUSERID,
+					APPLYUSERNAME,
+					RESULT,
+					REMARK,
+					APPLYTIME
+				)
+				values
+				(
+					:applyNo,
+					:applyUserId,
+					:applyUserName,
+					:result,
+					:remark,
+					:applyTime
+				)
+		]]>
+	</sql>
+	<!--查询支付服务申请审批记录 -->
+	<sql id="SelectPaySerApprList">
+    	<![CDATA[
+				select  
+					APPLYNO as applyNo,
+					APPLYUSERID as applyUserId,
+					APPLYUSERNAME as applyUserName,
+					RESULT as result,
+					REMARK as remark,
+					APPLYTIME as applyTime
+				from PAY_SERVICE_APPLY_APPROVAL
+				WHERE APPLYNO=:applyNo		
+				order by APPLYTIME desc
+		]]>
+	</sql>
+</sqlMap>

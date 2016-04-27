@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="FunMod">
+	<sql id="SelectFunModList">
+		 <![CDATA[
+		    SELECT ID,
+		       MNAME,
+		       MDESC,
+		       MLINK
+			FROM   FUNMOD
+			WHERE  ( 1 = 1 )
+			<#if id?exists && id!="">
+			  And ID=:id
+			</#if>
+			<#if mName?exists && mName!="">
+			  And MNAME=:mName
+			</#if>
+			<#if mDesc?exists && mDesc!="">
+			  And MDESC=:mDesc
+			</#if>
+			<#if mLink?exists && mLink!="">
+			  And MLINK=:mLink
+			</#if>
+			<#if oderbyField?exists && oderbyField!="">
+			  Order by ${oderbyField}
+			</#if>
+			<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+			  ${oderbyAscOrDesc}	
+			</#if>
+		]]>
+	</sql>
+</sqlMap>

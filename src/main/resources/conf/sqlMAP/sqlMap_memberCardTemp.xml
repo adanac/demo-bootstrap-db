@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="MemberCardTemp">
+	<sql id="SelectMemberCardTempList">
+		 <![CDATA[
+		    SELECT ID,
+		       COMPANY_ID,
+		       CARD_NAME,
+		       CARD_IMAGE_SRC
+			FROM   MEMBER_CARD_TEMP
+			WHERE  ( 1 = 1 )
+			<#if id?exists && id!="">
+			  And ID=:id
+			</#if>
+			<#if companyId?exists && companyId!="">
+			  And COMPANY_ID=:companyId
+			</#if>
+			<#if cardName?exists && cardName!="">
+			  And CARD_NAME=:cardName
+			</#if>
+			<#if cardImageSrc?exists && cardImageSrc!="">
+			  And CARD_IMAGE_SRC=:cardImageSrc
+			</#if>
+			<#if oderbyField?exists && oderbyField!="">
+			  Order by ${oderbyField}
+			</#if>
+			<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+			  ${oderbyAscOrDesc}	
+			</#if>
+		]]>
+	</sql>
+	<sql id="DeleteMemberCardTemp" >
+		<![CDATA[
+			DELETE FROM MEMBER_CARD_TEMP
+			WHERE  ID = :id
+		]]>
+	</sql>
+	<sql id="AddMemberCardTemp">
+		<![CDATA[
+			INSERT INTO MEMBER_CARD_TEMP
+			            (ID,
+			             COMPANY_ID,
+			             CARD_NAME,
+			             CARD_IMAGE_SRC)
+			VALUES      ( :id,
+			              :companyId,
+			              :cardName,
+			              :cardImageSrc) 
+         ]]>
+	</sql>
+	<sql id="UpdateMemberCardTemp">
+		<![CDATA[
+			UPDATE MEMBER_CARD_TEMP
+			SET    COMPANY_ID = :companyId,
+			       CARD_NAME = :cardName,
+			       CARD_IMAGE_SRC = :cardImageSrc
+			WHERE  ID = :id 
+		]]>
+	</sql>
+</sqlMap>

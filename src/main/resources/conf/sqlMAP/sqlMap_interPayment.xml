@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="InterPayment">
+	<!--新增互联网支付信息-->
+	<sql id="AddInterPayment">
+    	<![CDATA[
+				Insert into  INTER_PAYMENT_INFO
+				(
+					MERCODE,
+					SERVICECODE,
+					SERVICENAME,
+					PAYBUSNO,
+					DETPCODE,
+					DEPTNAME,
+					OCCDATE,
+					PAYNUMER,
+					PAYAMOUNT,
+					PREFERAMOUNT,
+					UPTIME,
+					POSNO
+				)
+				values
+				(
+				  :merCode,
+				  :serviceCode,
+				  :serviceName,
+				  :payBusNo,
+				  :deptCode,
+				  :deptName,
+				  :occDate,
+				  :payNumer,
+				  :payAmount,
+				  :preferAmount,
+				  :upTime,
+				  :posNo
+				)
+		]]>
+	</sql>
+	<!--修改互联网支付信息-->
+	<sql id="ModifyInterPayment">
+    	<![CDATA[
+				UPDATE INTER_PAYMENT_INFO
+				SET
+				    MERCODE=:merCode,
+					SERVICECODE=:serviceCode,
+					SERVICENAME= :serviceName,
+					PAYBUSNO=:payBusNo,
+					DETPCODE= :deptCode,
+					DEPTNAME=:deptName,
+					OCCDATE=:occDate,
+					PAYNUMER=:payNumer,
+					PAYAMOUNT=:payAmount,
+					PREFERAMOUNT= :preferAmount,
+					UPTIME=:upTime,
+					POSNO=:posNo
+				WHERE ID=:ID
+		]]>
+	</sql>
+	<!--刪除互联网支付信息-->
+	<sql id="DeleteInterPayment">
+    	<![CDATA[
+				DELETE FROM INTER_PAYMENT_INFO
+				WHERE ID =:id
+		]]>
+	</sql>
+	<!--获取互联网支付信息列表-->
+	<sql id="SelectInterPaymentList">
+    	<![CDATA[
+				SELECT
+					ID as id,
+					MERCODE as merCode,
+					SERVICECODE as serviceCode,
+					SERVICENAME as serviceName,
+					PAYBUSNO as payBusNo,
+					DETPCODE as deptCode,
+					DEPTNAME as deptName,
+					OCCDATE as occDate,
+					PAYNUMER as payNumer,
+					PAYAMOUNT as payAmount,
+					PREFERAMOUNT as preferAmount,
+					UPTIME as upTime,
+					POSNO as posNo
+				FROM INTER_PAYMENT_INFO	
+				WHERE (1=1)
+				<#if merCode?exists && merCode!="">
+				  And MERCODE=:merCode
+				</#if>
+				<#if serviceCode?exists && serviceCode!="">
+				  And SERVICECODE=:serviceCode
+				</#if>
+				<#if occDate?exists && occDate!="">
+				  And OCCDATE=:occDate
+				</#if>
+				<#if deptCode?exists && deptCode!="">
+				  And DETPCODE=:deptCode
+				</#if>
+				<#if upTime?exists && upTime!="">
+				  And UPTIME=:upTime
+				</#if>
+				<#if oderbyField?exists && oderbyField!="">
+				  Order by ${oderbyField}
+				</#if>
+				<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+				  ${oderbyAscOrDesc}	
+				</#if>
+		]]>
+	</sql>
+	<!--获取互联网支付信息列表-->
+	<sql id="SelectSingleInterPayment">
+    	<![CDATA[
+				SELECT
+					ID as id,
+					MERCODE as merCode,
+					SERVICECODE as serviceCode,
+					SERVICENAME as serviceName,
+					PAYBUSNO as payBusNo,
+					DETPCODE as deptCode,
+					DEPTNAME as deptName,
+					OCCDATE as occDate,
+					PAYNUMER as payNumer,
+					PAYAMOUNT as payAmount,
+					PREFERAMOUNT as preferAmount,
+					UPTIME as upTime,
+					POSNO as posNo
+				FROM INTER_PAYMENT_INFO	
+				WHERE MERCODE=:merCode
+				And SERVICECODE=:serviceCode
+				And PAYBUSNO=:payBusNo
+				And DETPCODE=:deptCode
+				And OCCDATE=:occDate	
+		]]>
+	</sql>
+	
+		<!--获取互联网支付信息列表-->
+	<sql id="SelectPayList">
+    	<![CDATA[
+				SELECT
+					app.MERCODE as merCode,
+					app.SERVICECODE as serviceCode,
+					app.SERVICENAME as serviceName,
+					case when app.SERVICECODE='ZF01' then alp.PAYID when app.SERVICECODE='ZF02' then wx.WXPAYNUMBER end serPayId 
+				FROM PAY_SERVICE_APPLY app
+				Left join PAY_SERVICE_APPLY_ALIPAY alp on app.APPLYNO=alp.APPLYNO
+				Left join PAY_SERVICE_APPLY_WX wx on app.APPLYNO=wx.APPLYNO
+				WHERE MERCODE=:merCode
+		]]>
+	</sql>
+</sqlMap>

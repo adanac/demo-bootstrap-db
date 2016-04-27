@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="PubNum">
+	<sql id="SelectPubNumList">
+		 <![CDATA[
+		    SELECT ID,                  
+				COMPANY_ID,       
+				PUBNUM_NUM,       
+				PUBNUM_NAME,      
+				PUBNUM_OLD_ID,    
+				PUBNUM_APPID,    
+				PUBNUM_APPSECRET, 
+				DOMAIN_NAME,      
+				PUBNUM_ENCRYPTKIK,
+				PUBNUM_URL,       
+				PUBNUM_TOKEN,     
+				PUBNUM_IMAGE  
+			FROM   PUBNUM
+			WHERE  ( 1 = 1 )
+			<#if id?exists && id!="">
+			  And ID=:id
+			</#if>
+			<#if companyId?exists && companyId!="">
+			  And COMPANY_ID=:companyId
+			</#if>
+			<#if pubnumNum?exists && pubnumNum!="">
+			  And PUBNUM_NUM=:pubnumNum
+			</#if>
+			<#if pubnumName?exists && pubnumName!="">
+			  And PUBNUM_NAME=:pubnumName
+			</#if>
+			<#if pubnumName?exists && pubnumName!="">
+			  And PUBNUM_OLD_ID=:pubnumName
+			</#if>
+			<#if pubnumName?exists && pubnumName!="">
+			  And PUBNUM_APPID=:pubnumName
+			</#if>
+			<#if pubnumName?exists && pubnumName!="">
+			  And PUBNUM_APPSECRET=:pubnumName
+			</#if>
+			<#if pubnumName?exists && pubnumName!="">
+			  And DOMAIN_NAME=:pubnumName
+			</#if>
+			<#if pubnumName?exists && pubnumName!="">
+			  And PUBNUM_ENCRYPTKIK=:pubnumName
+			</#if>
+			<#if pubnumName?exists && pubnumName!="">
+			  And PUBNUM_URL=:pubnumName
+			</#if>
+			<#if pubnumName?exists && pubnumName!="">
+			  And PUBNUM_TOKEN=:pubnumName
+			</#if>
+			<#if pubnumName?exists && pubnumName!="">
+			  And PUBNUM_IMAGE=:pubnumName
+			</#if>
+			<#if oderbyField?exists && oderbyField!="">
+			  Order by ${oderbyField}
+			</#if>
+			<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+			  ${oderbyAscOrDesc}	
+			</#if>
+		]]>
+	</sql>
+	<sql id="DeletePubNum" >
+		<![CDATA[
+			DELETE FROM PUBNUM
+			WHERE  ID = :id
+		]]>
+	</sql>
+	<sql id="AddPubNum">
+		<![CDATA[
+			INSERT INTO PUBNUM
+			            (        
+					COMPANY_ID,       
+					PUBNUM_NUM,       
+					PUBNUM_NAME,      
+					PUBNUM_OLD_ID,    
+					PUBNUM_APPID,    
+					PUBNUM_APPSECRET, 
+					DOMAIN_NAME,      
+					PUBNUM_ENCRYPTKIK,
+					PUBNUM_URL,       
+					PUBNUM_TOKEN,     
+					PUBNUM_IMAGE )
+			VALUES      ( :companyId,
+			              :pubnumNum,
+			              :pubnumName,
+			              :pubnumOldId,
+			              :pubnumAppid,
+			              :pubnumAppsecret,
+			              :domainName,
+			              :pubnumEncryptkik,
+			              :pubnumUrl,
+			              :pubnumToken,
+			              :pubnumImage) 
+         ]]>
+	</sql>
+	<sql id="UpdatePubNum">
+		<![CDATA[
+			UPDATE PUBNUM
+			SET    COMPANY_ID=:companyId,       
+					PUBNUM_NUM=:pubnumNum,       
+					PUBNUM_NAME=:pubnumName,      
+					PUBNUM_OLD_ID=:pubnumOldId,    
+					PUBNUM_APPID=:pubnumAppid,    
+					PUBNUM_APPSECRET=:pubnumAppsecret, 
+					DOMAIN_NAME=:domainName,      
+					PUBNUM_ENCRYPTKIK=:pubnumEncryptkik,
+					PUBNUM_URL=:pubnumUrl,       
+					PUBNUM_TOKEN=:pubnumToken,     
+					PUBNUM_IMAGE=:pubnumImage 
+			WHERE  ID = :id
+		]]>
+	</sql>
+</sqlMap>
