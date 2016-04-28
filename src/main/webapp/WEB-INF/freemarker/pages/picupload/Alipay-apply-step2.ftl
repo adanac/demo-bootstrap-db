@@ -17,9 +17,6 @@
     <link href="${resRoot}/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
     <link href="${resRoot}/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="${resRoot}/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
-    <!-- 独立样式 -->
-    <link href="${resRoot}/common/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="${resRoot}/common/css/custom.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="page-header-fixed page-quick-sidebar-over-content ">
@@ -53,7 +50,7 @@
                                 </div>
                             </div>
                             <div class="portlet-body form">
-                                <form id="apply_form" class="form-horizontal" >
+                                <form id="alipay_apply_form" class="form-horizontal" >
                                     <div class="form-wizard">
                                         <div class="form-body">
                                             <ul class="nav nav-pills nav-justified steps">
@@ -175,9 +172,8 @@
     <!-- BEGIN FOOTER -->
     <div id="footerdiv">
     </div>
-<input type="text" id="basePath" value="${basePath}"/>
     <!-- END FOOTER -->
-    <script src="${resRoot}/common/js/jquery.min.js" type="text/javascript"></script>
+    <script src="${resRoot}/common/jquery.min.js" type="text/javascript"></script>
     <script src="${resRoot}/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="${resRoot}/scripts/metronic.js" type="text/javascript"></script>
@@ -188,21 +184,21 @@
     <!-- layer -->
     <link rel="stylesheet" type="text/css" href="${resRoot}/plugins/layer/skin/layer.css" />
     <script type="text/javascript" src="${resRoot}/plugins/layer/layer.js"></script>
-    <!-- 验证方式一 jquery-check -->
-    <script src="${resRoot}/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
-    <link href="${resRoot}/plugins/jquery-check/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="${resRoot}/plugins/jquery-check/jquery.validationEngine.js"></script>
-    <script type="text/javascript" src="${resRoot}/plugins/jquery-check/jquery.validationEngine-en.js"></script>
+    <!-- 验证方式二 -->
+	<script type="text/javascript" src="${resRoot}/assets/plugins/jquery-check/checkAll.js"></script>
+	<link href="${resRoot}/assets/plugins/jquery-check/checkAll.css" rel="stylesheet" type="text/css" />
     <!-- 选择图片显示 -->
     <link rel="stylesheet" type="text/css" href="${resRoot}/plugins/pic-input/pic-uploader.css" />
     <script type="text/javascript" src="${resRoot}/plugins/pic-input/pic-uploader.js"></script>
     <script type="text/javascript" src="${resRoot}/plugins/pic-input/pic-uploader2.js"></script>
     <script type="text/javascript" src="${casJSSrc}"></script>
     <script type="text/javascript" src="${imsJSSrc}"></script>
-    <script src="${resRoot}/common/js/ajaxpost.js" type="text/javascript"></script>
+    <script src="${resRoot}/common/ajaxpost.js" type="text/javascript"></script>
     <script type="text/javascript" src="${resRoot}/pages/picupload/alipay.js"></script>
     <script>
     jQuery(document).ready(function() {
+    	new validation($(".form-control1"),$(".discount_saveBtn"),{},function(){updateCoupon()});
+    	
         	var ff = true;
             assembly.progress(1);
             $(".button-next").click(function() {
@@ -218,13 +214,13 @@
                 } else if ($('#tab2').hasClass("active")) {
                 	if(!checknum()){
                     	layer.msg("支付宝帐号不能为空,无法继续");
-                    }else if(!checkUphoto()){
+                    }else if(!checkMenpai()){
                     	layer.msg("请上传身份证正面照片");
-                    }else if(!checkDphoto()){
+                    }else if(!checkMentou()){
                     	layer.msg("请上传身份证反面照片");
                     }else{
                     	console.log("支付宝申请验证通过");
-                    	saveAlipay2(${flag});
+                    	saveAlipay(${flag});
                     	$(this).css("display","none");
     	                $("#tab2").removeClass("active");
     	                $("#tab3").addClass("active");
@@ -244,8 +240,8 @@
                     
                     function successBack(url){
                         console.log(url);
-                        initUploader($(".uploadBtn100"), "#filePicker100","#cardPhotoUp", ".fileContainer100",url,options); //领取按钮图片
-                        initUploader($(".uploadBtn101"), "#filePicker101","#cardPhotoDn", ".fileContainer101",url,options); //领取按钮图片
+                        initUploader($(".uploadBtn100"), "#filePicker100","#housenumphoto", ".fileContainer100",url,options); //领取按钮图片
+                        initUploader($(".uploadBtn101"), "#filePicker101","#doorphoto", ".fileContainer101",url,options); //领取按钮图片
                     }
                     function getUploadUrl(){
                         IMS.getUploadUrl(options);
@@ -271,8 +267,6 @@
                 };
             });
             
-            //验证方式一
-	        $("#apply_form").validationEngine();
 	        //最大字数限制控件
 	        $('*[maxlength]').maxlength({
 	            alwaysShow: true,
@@ -282,7 +276,7 @@
 	        $("#btn_ok").on('click', function(event) {
 	    		goBack(${flag})
 	    	});
-	        
+            
         });
         
     </script>

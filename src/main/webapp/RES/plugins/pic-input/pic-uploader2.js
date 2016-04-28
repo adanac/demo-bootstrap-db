@@ -19,9 +19,10 @@ function initUploader(startBtn,target,hiddenId,fileContainer,serverUrl, options)
 	uploader = WebUploader.create({
 
 	    // 选完文件后，是否自动上传。
-	    auto: false,
+	    auto: true,
 	    //fileNumLimit: 1,
-	    
+//	    fileSingleSizeLimit: 1*1024*1024,
+	    fileSizeLimit : 1*1024*1024,
 
 	    /*// swf文件路径
 	    swf: BASE_URL + '/js/Uploader.swf',*/
@@ -58,6 +59,7 @@ function initUploader(startBtn,target,hiddenId,fileContainer,serverUrl, options)
 
 	    // $list为容器jQuery实例
 	    $(fileContainer).append( $li );
+	    $(fileContainer).css("background","none");
 
 	    // 创建缩略图
 	    // 如果为非图片文件，可以不用调用此方法。
@@ -72,15 +74,21 @@ function initUploader(startBtn,target,hiddenId,fileContainer,serverUrl, options)
 	        $img.attr( 'src', src );
 	    }, 100, 100 );
 	    
-	    var thumbnail=$(".thumbnail");
+	    var thumbnail=$(fileContainer).find(".thumbnail");
 	    if(thumbnail.length>=2){
-	    	$($(".thumbnail")[0]).remove();
+	    	$(thumbnail[0]).remove();
 	    }
+	    var index = layer.load(2, {shade: false}); //0代表加载的风格，支持0-2
 	});
 
 	//上传开始触发
 	uploader.on('startUpload',function(){
-		var index = layer.load(2, {shade: false}); //0代表加载的风格，支持0-2
+		if (systemOptions.directToTencent == true) {
+			uploader.option( 'withCredentials', false);
+		} else {
+			uploader.option( 'withCredentials', true);
+		}
+		
 	})
 
 
@@ -97,6 +105,22 @@ function initUploader(startBtn,target,hiddenId,fileContainer,serverUrl, options)
 
 	    $percent.css( 'width', percentage * 100 + '%' );
 	});
+	
+	uploader.on('error', function(handler) {
+		layer.closeAll();
+		if(handler=="Q_EXCEED_NUM_LIMIT"){
+			layer.msg("超出最大张数");
+		}
+		if(handler=="F_DUPLICATE"){
+			layer.msg("文件重复");
+		}
+		if(handler=="Q_EXCEED_SIZE_LIMIT"){
+			layer.msg("文件不能超过1M");
+			
+		}
+		uploader.reset();
+});
+	
 
 	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
 	uploader.on( 'uploadSuccess', function( file, response ) {
@@ -125,6 +149,7 @@ function initUploader(startBtn,target,hiddenId,fileContainer,serverUrl, options)
 	    layer.msg("抱歉，上传失败");
 	    $ff=3;
 	});
+	
 
 	uploader.addButton({
 	    id: '#btnContainer',
@@ -172,4 +197,5 @@ function initUploader(startBtn,target,hiddenId,fileContainer,serverUrl, options)
 	    // 最后显示所有的属性
 	    alert(props);
 	}
+	
 }

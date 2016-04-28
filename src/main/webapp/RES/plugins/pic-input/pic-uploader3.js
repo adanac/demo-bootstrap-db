@@ -7,7 +7,7 @@ function initUploader(startBtn,target,fileContainer,url){
 	    // 选完文件后，是否自动上传。
 	    auto: false,
 	    fileNumLimit: 1,
-	    
+	    fileSingleSizeLimit: 1*1024*1024,
 
 	    /*// swf文件路径
 	    swf: BASE_URL + '/js/Uploader.swf',*/

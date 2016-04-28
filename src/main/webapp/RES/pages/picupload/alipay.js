@@ -1,19 +1,17 @@
 //图片上传
-var basePath = '${base}';
-$('#save_btn').on('click', function(event) {
-	if(checknum() == false || checkMenpai() == false || checkMentou() == false 
-			|| checkInside() == false || checkOfficeones() == false || checkOfficetwo() == false
-			|| checkOfficethree() == false)
-	{
-		alert("check fail");
-		return false;
-	}
-	var apply_form = $('#alipay_apply_form');
+//var basePath = '${base}';
+var basePath = $("#basePath").val();
+function saveAlipay(flag){
+	console.log(basePath)
+	var apply_form = $('#apply_form');
 	var param = $.serializeObject(apply_form);
-	
+	var now = new Date();
+	var applyDate = now.getFullYear()+"-"+((now.getMonth()+1)<10?"0":"")+(now.getMonth()+1)+"-"+(now.getDate()<10?"0":"")+now.getDate()+" "+(now.getHours()<10?"0":"")+now.getHours()+":"+(now.getMinutes()<10?"0":"")+now.getMinutes()+":"+(now.getSeconds()<10?"0":"")+now.getSeconds();
+	console.log(applyDate);
+	param.applyDate = applyDate;
 	var paramJson = encodeURI(encodeURI(JSON.stringify(param)));
 	
-	var url = basePath + '/picupload/addAlipay.do?paramJson=' + paramJson;
+	var url = basePath + 'picupload/addAlipay.do?paramJson=' + paramJson;
 	$.ajax({
 		type : "post",
 		url : url,
@@ -23,91 +21,95 @@ $('#save_btn').on('click', function(event) {
 			$("#save").removeAttr("disabled");
 			if (data.status == "1") {
 				alert(data.message);
-				window.location.href="${base}/picupload/toAlipay.do";
-			}
-			if (data.status == "0") {
+			}else if (data.status == "0") {
 				alert(data.message);
 			}
 		}
 	});
- });
+}
+
+
+function saveAlipay2(flag){
+	console.log(basePath)
+	var apply_form = $('#apply_form');
+	var param = $.serializeObject(apply_form);
+	var now = new Date();
+	var applyDate = now.getFullYear()+"-"+((now.getMonth()+1)<10?"0":"")+(now.getMonth()+1)+"-"+(now.getDate()<10?"0":"")+now.getDate()+" "+(now.getHours()<10?"0":"")+now.getHours()+":"+(now.getMinutes()<10?"0":"")+now.getMinutes()+":"+(now.getSeconds()<10?"0":"")+now.getSeconds();
+	console.log(applyDate);
+	param.applyDate = applyDate;
+//	var coupon = new Object();
+//	coupon.buttonPicture = buttonPicture;
+//	coupon.backgroundPicture = backgroundPicture;
+//	coupon.id = id;
 	
-$("#btn_ok").on('click', function(event) {
-	window.location.href="${base}/picupload/toAlipay.do";
-})
+	var url = basePath + 'picupload/addAlipay2.do';
+	$.ajax({
+		type : "post",
+		url : url,
+		data : param,
+		dataType : "json",
+		success : function(data) {
+			$("#save").removeAttr("disabled");
+			if (data.status == "1") {
+				alert(data.message);
+			}else if (data.status == "0") {
+				alert(data.message);
+			}
+		}
+	});
+}
+
+function goBack(flag){
+	if(flag == "0"){
+		window.location.href="${base}/payment/toAlipay.do";
+	}else{
+		window.location.href="${base}";
+	}
+	//window.history.back(-1); 
+}
 
   //验证支付宝账号
 function checknum(){
-	var num = $("#num").val();
-	if(num == ""){
-		helpInfo("shownum","不能为空");
+	var account = $("#account").val();
+	if(account == ""){
 		return false;
+	}else{
+		return true;
 	}
-	helpInfo("shownum","");
 }
 
-//显示提示信息
-function helpInfo(id,msg){
-	$("#"+id+"").html(msg);
-	$("#"+id+"").show("slow");
-}
-
-function checkMenpai()
+function checkUphoto()
 {
-	var name = $("#show").attr('src');
+	var name = $("#cardPhotoUp").val();
+	console.log("cardPhotoUp:"+name)
 	if (name == "") {
-		helpInfo("showMenpai","门牌号照片不能为空，请输入");
 		return false;
+	}else{
+		return true;
 	}
-	helpInfo("showMenpai","");
 }
 
-function checkMentou()
+function checkDphoto()
 {
-	var name = $("#doorshow").attr('src');
+	var name = $("#cardPhotoDn").val();
+	console.log("cardPhotoDn:"+name)
 	if (name == "") {
-		helpInfo("showMentou","门头照片不能为空，请输入");
 		return false;
+	}else{
+		return true;
 	}
-	helpInfo("showMentou","");
 }
 
-function checkInside()
-{
-	var name = $("#insideshow").attr('src');
-	if (name == "") {
-		helpInfo("showInside","内景照片不能为空，请输入");
-		return false;
-	}
-	helpInfo("showInside","");
-}
 
-function checkOfficeones()
-{
-	var name = $("#officeoneshow").attr('src');
-	if (name == "") {
-		helpInfo("showOfficeones","工作实景(1)不能为空，请输入");
-		return false;
-	}
-	helpInfo("showOfficeones","");
-}
 
-function checkOfficetwo()
-{
-	var name = $("#officetwoshow").attr('src');
-	if (name == "") {
-		helpInfo("showOfficetwo","工作实景(2)不能为空，请输入");
-		return false;
-	}
-	helpInfo("showOfficetwo","");
-}
 
-function checkOfficethree()
-{
-	var name = $("#officethreeshow").attr('src');
-	if (name == "") {
-		helpInfo("showOfficethree","工作实景(2)不能为空，请输入");
+
+function checkApply(){
+	if( checknum() && checkUphoto() && checkDphoto() ){
+		console.log("支付宝申请验证通过");
+		return true;
+	}else{
+		console.log("支付宝申请验证失败");
 		return false;
 	}
-	helpInfo("showOfficethree","");
 }

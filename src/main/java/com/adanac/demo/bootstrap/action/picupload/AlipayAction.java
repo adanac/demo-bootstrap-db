@@ -13,7 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.adanac.demo.bootstrap.entity.common.BootstrapPage;
 import com.adanac.demo.bootstrap.entity.common.BootstrapTable;
@@ -42,8 +41,37 @@ public class AlipayAction extends BaseController {
 	 * 跳转到支付宝申请
 	 */
 	@RequestMapping(value = "/toAlipay")
-	public ModelAndView toAlipay() {
-		return new ModelAndView("pages/picupload/Alipay-apply-step.ftl");
+	public String toAlipay(HttpServletRequest request, ModelMap model) {
+		String flag = "0";
+		model.addAttribute("flag", flag);
+		String path = request.getContextPath();
+		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
+				+ "/";
+		model.put("basePath", basePath);
+		return "pages/picupload/Alipay-apply-step.ftl";
+	}
+
+	@RequestMapping(value = "addAlipay2", produces = "text/html;charset=UTF-8")
+	public void addAlipay2(HttpServletRequest request, AlipayDto alipayDto, HttpServletResponse response) {
+		// 获取参数
+		System.out.println("alipay:" + alipayDto.toString());
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			// 调用服务
+			Boolean res = alipayService.addAlipay(alipayDto);
+			if (res) {
+				result.put(STATUS, SUCCESS);
+				result.put(MESSAGE, "支付宝申请成功");
+			} else {
+				result.put(STATUS, ERROR);
+				result.put(MESSAGE, "支付宝申请失败");
+			}
+		} catch (Exception e) {
+			System.out.println("addPayAlip fail");
+			result.put(STATUS, ERROR);
+			result.put(MESSAGE, "支付宝申请异常");
+		}
+		ajaxJson(response, JSONObject.fromObject(result).toString());
 	}
 
 	/**
