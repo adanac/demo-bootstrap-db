@@ -37,11 +37,6 @@ function saveAlipay2(flag){
 	var applyDate = now.getFullYear()+"-"+((now.getMonth()+1)<10?"0":"")+(now.getMonth()+1)+"-"+(now.getDate()<10?"0":"")+now.getDate()+" "+(now.getHours()<10?"0":"")+now.getHours()+":"+(now.getMinutes()<10?"0":"")+now.getMinutes()+":"+(now.getSeconds()<10?"0":"")+now.getSeconds();
 	console.log(applyDate);
 	param.applyDate = applyDate;
-//	var coupon = new Object();
-//	coupon.buttonPicture = buttonPicture;
-//	coupon.backgroundPicture = backgroundPicture;
-//	coupon.id = id;
-	
 	var url = basePath + 'picupload/addAlipay2.do';
 	$.ajax({
 		type : "post",

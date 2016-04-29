@@ -12,14 +12,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="${resRoot}/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="${resRoot}/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="${resRoot}/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="${resRoot}/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
-    <!-- 独立样式 -->
-    <link href="${resRoot}/common/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="${resRoot}/common/css/custom.css" rel="stylesheet" type="text/css" />
+    
 </head>
 
 <body class="page-header-fixed page-quick-sidebar-over-content ">
@@ -177,30 +170,10 @@
     </div>
 <input type="text" id="basePath" value="${basePath}"/>
     <!-- END FOOTER -->
-    <script src="${resRoot}/common/js/jquery.min.js" type="text/javascript"></script>
-    <script src="${resRoot}/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="${resRoot}/scripts/metronic.js" type="text/javascript"></script>
-    <script src="${resRoot}/plugins/layout/scripts/layout.js" type="text/javascript"></script>
-    <script src="${resRoot}/plugins/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-    <script src="${resRoot}/plugins/layout/scripts/demo.js" type="text/javascript"></script>
-    <script src="${resRoot}/scripts/Assembly.js" type="text/javascript"></script>
-    <!-- layer -->
-    <link rel="stylesheet" type="text/css" href="${resRoot}/plugins/layer/skin/layer.css" />
-    <script type="text/javascript" src="${resRoot}/plugins/layer/layer.js"></script>
-    <!-- 验证方式一 jquery-check -->
-    <script src="${resRoot}/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
-    <link href="${resRoot}/plugins/jquery-check/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="${resRoot}/plugins/jquery-check/jquery.validationEngine.js"></script>
-    <script type="text/javascript" src="${resRoot}/plugins/jquery-check/jquery.validationEngine-en.js"></script>
-    <!-- 选择图片显示 -->
-    <link rel="stylesheet" type="text/css" href="${resRoot}/plugins/pic-input/pic-uploader.css" />
-    <script type="text/javascript" src="${resRoot}/plugins/pic-input/pic-uploader.js"></script>
-    <script type="text/javascript" src="${resRoot}/plugins/pic-input/pic-uploader2.js"></script>
-    <script type="text/javascript" src="${casJSSrc}"></script>
-    <script type="text/javascript" src="${imsJSSrc}"></script>
-    <script src="${resRoot}/common/js/ajaxpost.js" type="text/javascript"></script>
-    <script type="text/javascript" src="${resRoot}/pages/picupload/alipay.js"></script>
+    <#include "../pages/common/common.ftl">
+    <#include "../pages/picupload.ftl">
+    <#include "../pages/jquery_check.ftl">
+    <script type="text/javascript" src="${resRoot}/pages/picupload/alipayOper.js"></script>
     <script>
     jQuery(document).ready(function() {
         	var ff = true;

@@ -3,6 +3,7 @@ package com.adanac.demo.bootstrap.action.picupload;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.adanac.demo.bootstrap.entity.common.BootstrapPage;
 import com.adanac.demo.bootstrap.entity.common.BootstrapTable;
@@ -38,10 +40,18 @@ public class AlipayAction extends BaseController {
 	private AlipayService alipayService;
 
 	/**
+	 * 跳转到支付宝列表页面
+	 */
+	@RequestMapping(value = "toAlipay")
+	public ModelAndView toAlipay() {
+		return new ModelAndView("pages/picupload/Alipay.ftl");
+	}
+
+	/**
 	 * 跳转到支付宝申请
 	 */
-	@RequestMapping(value = "/toAlipay")
-	public String toAlipay(HttpServletRequest request, ModelMap model) {
+	@RequestMapping(value = "toAlipayApply")
+	public String toAlipayApply(HttpServletRequest request, ModelMap model) {
 		String flag = "0";
 		model.addAttribute("flag", flag);
 		String path = request.getContextPath();
@@ -54,9 +64,10 @@ public class AlipayAction extends BaseController {
 	@RequestMapping(value = "addAlipay2", produces = "text/html;charset=UTF-8")
 	public void addAlipay2(HttpServletRequest request, AlipayDto alipayDto, HttpServletResponse response) {
 		// 获取参数
-		System.out.println("alipay:" + alipayDto.toString());
+		System.out.println("AlipayAction====>alipay{}" + alipayDto.toString());
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
+			setApplyNo(alipayDto);
 			// 调用服务
 			Boolean res = alipayService.addAlipay(alipayDto);
 			if (res) {
@@ -67,11 +78,20 @@ public class AlipayAction extends BaseController {
 				result.put(MESSAGE, "支付宝申请失败");
 			}
 		} catch (Exception e) {
-			System.out.println("addPayAlip fail");
+			System.out.println("AlipayAction====>addPayAlip fail");
 			result.put(STATUS, ERROR);
 			result.put(MESSAGE, "支付宝申请异常");
 		}
 		ajaxJson(response, JSONObject.fromObject(result).toString());
+	}
+
+	private void setApplyNo(AlipayDto alipayDto) {
+		// 申请no
+		UUID uuid = UUID.randomUUID();
+		String str = uuid.toString();
+		String applyNo = str.substring(0, 8) + str.substring(9, 13) + str.substring(14, 18) + str.substring(19, 23)
+				+ str.substring(24);
+		alipayDto.setApplyNo(applyNo);
 	}
 
 	/**
@@ -88,7 +108,7 @@ public class AlipayAction extends BaseController {
 		try {
 			paramJson = java.net.URLDecoder.decode(paramJson, "utf-8");
 			AlipayDto alipayDto = JSON.parse(paramJson, AlipayDto.class);
-
+			setApplyNo(alipayDto);
 			// 调用服务
 			Boolean res = alipayService.addAlipay(alipayDto);
 			if (res) {
@@ -109,7 +129,7 @@ public class AlipayAction extends BaseController {
 	/**
 	 * 跳转到支付宝申请详情页面
 	 */
-	@RequestMapping(value = "/toAlipayApplied")
+	@RequestMapping(value = "toAlipayApplied")
 	public String toAlipayApplied(HttpServletRequest request, ModelMap model) {
 		try {
 			findPayDetail(request, model);// 查询支付详情
@@ -123,7 +143,7 @@ public class AlipayAction extends BaseController {
 	/**
 	 * 跳转到支付宝编辑页面（已审核）
 	 */
-	@RequestMapping(value = "/toAlipayEdit", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "toAlipayEdit", produces = "text/html;charset=UTF-8")
 	public String toAlipayEdit(HttpServletRequest request, ModelMap model) {
 		try {
 			findPayDetail(request, model);// 查询支付详情
@@ -206,17 +226,14 @@ public class AlipayAction extends BaseController {
 	 * 查询支付宝列表
 	 */
 	@ResponseBody
-	@RequestMapping(value = "alipayList")
-	public String alipayList(HttpServletRequest request, HttpServletResponse response, AlipayDto alipay,
+	@RequestMapping(value = "ajaxList")
+	public String ajaxList(HttpServletRequest request, HttpServletResponse response, AlipayDto alipay,
 			BootstrapPage page) {
 		try {
 			PagerParam param = new PagerParam();
 			param.setPageNumber(page.getPageNumber());
 			param.setPageSize(page.getPageSize());
-			// 参数封装
-			AlipayDto condition = new AlipayDto();
-			condition.setAccount("tb@tb.com");
-			Pager<AlipayDto> pager = alipayService.findAlipayList(condition, param);
+			Pager<AlipayDto> pager = alipayService.findAlipayList(alipay, param);
 			List<AlipayDto> infoList = pager.getDatas();
 
 			BootstrapTable<AlipayDto> data = new BootstrapTable<AlipayDto>(infoList,
@@ -227,6 +244,36 @@ public class AlipayAction extends BaseController {
 			System.out.println("查询支付列表失败:" + e.toString());
 			return "";
 		}
+	}
+
+	/**
+	 * 查看支付宝账号是否存在
+	 * 
+	 * @param paramJson
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value = "check", produces = "text/html;charset=UTF-8")
+	public void checkAccount(HttpServletRequest request, HttpServletResponse response, String account) {
+		// 获取参数
+		Map<String, Object> result = new HashMap<String, Object>();
+		System.out.println("checkAccount====>account:" + account);
+		try {
+			// 调用服务
+			Boolean res = alipayService.accountExist(account);
+			if (res) {
+				result.put(STATUS, SUCCESS);
+				result.put(MESSAGE, "该账号已被注册，支付宝申请失败");
+			} else {
+				result.put(STATUS, ERROR);
+				result.put(MESSAGE, "该账号没有被注册");
+			}
+		} catch (Exception e) {
+			System.out.println("查询支付宝账号是否存在失败");
+			result.put(STATUS, ERROR);
+			result.put(MESSAGE, "查询支付宝账号是否存在失败");
+		}
+		ajaxJson(response, JSONObject.fromObject(result).toString());
 	}
 
 }

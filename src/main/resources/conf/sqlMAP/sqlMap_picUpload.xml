@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="PicUpload">
+
+	 <!--查询单个三方支付服务支付宝申请列表-->
+	<sql id="findAlipayByAccount">
+    	<![CDATA[
+				SELECT 
+				    p.ID as id,
+					p.APPLYNO as applyNo,
+					p.ACCOUNT as account,
+					p.CARDPHOTOUP as cardPhotoUp,
+					p.CARDPHOTODN as cardPhotoDn
+				FROM T_PICUPLOAD p
+				WHERE 1=1 AND p.ACCOUNT=:account
+		]]>
+	</sql>
+	
+	<!--新增三方支付服务申请 -->
+	<sql id="addAlipay">
+    	<![CDATA[
+				INSERT INTO T_PICUPLOAD
+				(
+					APPLYNO,
+					ACCOUNT,
+					CARDPHOTOUP,
+					CARDPHOTODN
+				)
+				values
+				(
+					:applyNo,
+					:account,
+					:cardPhotoUp,
+					:cardPhotoDn
+				)
+		]]>
+	</sql>
+	
+	<!--修改三方支付服务申请 -->
+	<sql id="modAlipay">
+    	<![CDATA[
+				UPDATE T_PICUPLOAD
+				SET
+					ACCOUNT=:account,
+					CARDPHOTOUP=:cardPhotoUp,
+					CARDPHOTODN=:cardPhotoDn
+				WHERE APPLYNO=:applyNo
+		]]>
+	</sql>
+	
+	<!--获取三方支付服务支付宝申请列表-->
+	<sql id="pageAlipay">
+    	<![CDATA[
+				SELECT distinct 
+				    p.ID as id, 
+					p.APPLYNO as applyNo,
+					p.ACCOUNT as account,
+					p.CARDPHOTOUP as cardPhotoUp,
+					p.CARDPHOTODN as cardPhotoDn
+				FROM T_PICUPLOAD p
+				WHERE (1=1)
+				<#if applyNo?exists && applyNo!="">
+				  and p.APPLYNO=:applyNo
+				</#if>
+				<#if account?exists && account!="">
+				  and p.ACCOUNT=:account
+				</#if>
+				<#if oderbyField?exists && oderbyField!="">
+				  Order by ${oderbyField}
+				</#if>
+				<#if oderbyAscOrDesc?exists && oderbyAscOrDesc!="">
+				  ${oderbyAscOrDesc}	
+				</#if>
+		]]>
+	</sql>
+</sqlMap>

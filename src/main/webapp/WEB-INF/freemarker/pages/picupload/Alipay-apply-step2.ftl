@@ -187,14 +187,9 @@
     <!-- 验证方式二 -->
 	<script type="text/javascript" src="${resRoot}/assets/plugins/jquery-check/checkAll.js"></script>
 	<link href="${resRoot}/assets/plugins/jquery-check/checkAll.css" rel="stylesheet" type="text/css" />
-    <!-- 选择图片显示 -->
-    <link rel="stylesheet" type="text/css" href="${resRoot}/plugins/pic-input/pic-uploader.css" />
-    <script type="text/javascript" src="${resRoot}/plugins/pic-input/pic-uploader.js"></script>
-    <script type="text/javascript" src="${resRoot}/plugins/pic-input/pic-uploader2.js"></script>
-    <script type="text/javascript" src="${casJSSrc}"></script>
-    <script type="text/javascript" src="${imsJSSrc}"></script>
+    <#include "../../pages/common/picupload.ftl">
     <script src="${resRoot}/common/ajaxpost.js" type="text/javascript"></script>
-    <script type="text/javascript" src="${resRoot}/pages/picupload/alipay.js"></script>
+    <script type="text/javascript" src="${resRoot}/pages/picupload/alipayOper.js"></script>
     <script>
     jQuery(document).ready(function() {
     	new validation($(".form-control1"),$(".discount_saveBtn"),{},function(){updateCoupon()});

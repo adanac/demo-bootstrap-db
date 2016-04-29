@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.adanac.demo.bootstrap.dao.picupload.PubNumBaseService;
 import com.adanac.demo.bootstrap.entity.common.BaseDto;
 import com.adanac.demo.bootstrap.entity.constant.CodeConst;
-import com.adanac.demo.bootstrap.entity.constant.ErrorCodeConst;
 import com.adanac.demo.bootstrap.entity.picupload.PubNum;
 import com.adanac.demo.bootstrap.entity.picupload.PubNumDto;
 import com.adanac.demo.bootstrap.utils.BeanUtil;
@@ -35,8 +34,7 @@ public class PubNumberServiceImpl implements PubNumberService {
 			PubNum pubNum = new PubNum();
 			BeanUtil.copyProperties(pubNum, pubNumDto);
 			Long result = pubNumBaseService.addPubNum(pubNum);
-			return DtoUtil.instanceBaseDto(result > 0, ErrorCodeConst.PUBNUM_ADD_ERROR, "新增微信公众号设置失败",
-					String.valueOf(result));
+			return DtoUtil.instanceBaseDto(result > 0, CodeConst.CODE_FAIL, "新增微信公众号设置失败", String.valueOf(result));
 		} catch (Exception e) {
 			return DtoUtil.instanceBaseDto(false, CodeConst.CODE_ERROR, "未知异常");
 		}
@@ -73,7 +71,7 @@ public class PubNumberServiceImpl implements PubNumberService {
 			PubNum pubNum = new PubNum();
 			BeanUtil.copyProperties(pubNum, pubNumDto);
 			int result = pubNumBaseService.modPubNum(pubNum);
-			return DtoUtil.instanceBaseDto(result > 0, ErrorCodeConst.PUBNUM_MOD_ERROR, "修改微信公众号设置失败");
+			return DtoUtil.instanceBaseDto(result > 0, CodeConst.CODE_FAIL, "修改微信公众号设置失败");
 		} catch (Exception e) {
 			return DtoUtil.instanceBaseDto(false, CodeConst.CODE_ERROR, "未知异常");
 		}

@@ -39,4 +39,12 @@ public interface AlipayService {
 	 */
 	public Boolean modifyPayAlip(AlipayDto alipayDto);
 
+	/**
+	 * 查询支付宝账号是否已存在
+	 * 
+	 * @param account
+	 * @return
+	 */
+	public Boolean accountExist(String account);
+
 }

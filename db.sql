@@ -1,0 +1,46 @@
+CREATE TABLE `T_PICUPLOAD` (
+  `ID` INT (11) NOT NULL AUTO_INCREMENT,
+  `APPLYNO` VARCHAR (50) DEFAULT NULL,
+  `ACCOUNT` VARCHAR (30) DEFAULT NULL,
+  `CARDPHOTOUP` VARCHAR (255) DEFAULT NULL,
+  `CARDPHOTODN` VARCHAR (255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) SHOW TABLES ;
+
+SELECT DISTINCT 
+  p.ID AS id,
+  p.APPLYNO AS applyNo,
+  p.ACCOUNT AS account,
+  p.CARDPHOTOUP AS cardPhotoUp,
+  p.CARDPHOTODN AS cardPhotoDn 
+FROM
+  T_PICUPLOAD p 
+WHERE (1 = 1) 
+  AND p.APPLYNO = 11 
+  AND p.ACCOUNT = 12 
+  INSERT INTO T_PICUPLOAD (
+    APPLYNO,
+    ACCOUNT,
+    CARDPHOTOUP,
+    CARDPHOTODN
+  ) 
+  VALUES
+    ('1', '2', '3', '4') 
+  SELECT 
+    p.ID AS id,
+    p.APPLYNO AS applyNo,
+    p.ACCOUNT AS account,
+    p.CARDPHOTOUP AS cardPhotoUp,
+    p.CARDPHOTODN AS cardPhotoDn 
+  FROM
+    T_PICUPLOAD p 
+  WHERE p.ACCOUNT = '2' 
+    SELECT 
+      p.ID AS id,
+      p.APPLYNO AS applyNo,
+      p.ACCOUNT AS account,
+      p.CARDPHOTOUP AS cardPhotoUp,
+      p.CARDPHOTODN AS cardPhotoDn 
+    FROM
+      T_PICUPLOAD p 
+    WHERE 1 = 1 p.ACCOUNT = 1

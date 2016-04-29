@@ -16,6 +16,10 @@ public class AlipayDto implements Serializable {
 	 * ID
 	 */
 	private Integer id;
+	/*
+	 * 申请单号
+	 */
+	private String applyNo;
 
 	/*
 	 * 支付宝账号
@@ -54,6 +58,14 @@ public class AlipayDto implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getApplyNo() {
+		return applyNo;
+	}
+
+	public void setApplyNo(String applyNo) {
+		this.applyNo = applyNo;
 	}
 
 	public String getAccount() {
