@@ -5,6 +5,9 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp/WEB-INF"/>
+        <dependent-module archiveName="adanac-dac-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/adanac-dac/adanac-dac">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="adanac-cache-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/adanac-cache/adanac-cache">
             <dependency-type>uses</dependency-type>
         </dependent-module>

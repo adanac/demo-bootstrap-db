@@ -20,8 +20,3 @@
     <script type="text/javascript" src="${resRoot}/plugins/layer/layer.js"></script>
     <!-- ajaxpost -->
     <script src="${resRoot}/common/js/ajaxpost.js" type="text/javascript"></script>
-
-<script>
-    var basePath ='${base}';
-    var resRoot ='${resRoot}';
-</script>

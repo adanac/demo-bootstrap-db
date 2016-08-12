@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <title>创纪云|零售业全渠道O2O平台</title>
-    <#include "../pages/common/common.ftl">
+    <#include "../common/common.ftl">
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo">
     <!-- BEGIN CONTAINER -->

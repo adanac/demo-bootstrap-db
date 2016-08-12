@@ -22,17 +22,21 @@
    
   
     
-    
-
 	<!--===================== view resovler ===================== -->
+    
+	<!-- 默认的注解映射的支持 ,它会自动注册DefaultAnnotationHandlerMapping 与AnnotationMethodHandlerAdapter-->
+	<mvc:annotation-driven conversion-service="conversionService" />  
+	
+	<!-- 自动扫描注解的Controller
+    	<context:component-scan base-package="com.adanac.demo.bootstrap.action" />
+	-->
 	
    	<!-- 只掃描controller -->
     <context:component-scan base-package="com.adanac.demo" use-default-filters="false">
 		<context:include-filter type="annotation" 
 			expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
-	<mvc:annotation-driven conversion-service="conversionService" />  
-		   
+	
     <!-- 
 	<context:component-scan base-package="com.adanac.demo" >
         <context:include-filter type="regex" 
@@ -77,7 +81,10 @@
 
 	<!-- 文件上传支持 -->
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes --> 
+        <property name="maxUploadSize" value="204800" />
+	</bean>
 
 	<!-- 类型转换支持 -->
 	<bean id="conversionService"

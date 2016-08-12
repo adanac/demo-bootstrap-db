@@ -52,5 +52,5 @@
 	    <property name="dataSource" ref="dataSource"></property>   
 	</bean>  
 	<!-- JNDI数据源 -->
-	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/o2o_pay" proxy-interface="javax.sql.DataSource" lookup-on-startup="false" /> 
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/demo" proxy-interface="javax.sql.DataSource" lookup-on-startup="false" /> 
 </beans>

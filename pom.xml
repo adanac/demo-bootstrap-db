@@ -83,10 +83,7 @@
 		<groupId>com.adanac.framework</groupId>
 		<artifactId>adanac-dac</artifactId>
 	</dependency>
-    <dependency>
-	    <groupId>commons-fileupload</groupId>
-	    <artifactId>commons-fileupload</artifactId>
-	</dependency>
+    
     <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>dubbo</artifactId>
@@ -99,6 +96,20 @@
 	  <groupId>org.apache</groupId>
 	  <artifactId>commons-dbutils</artifactId>
 	</dependency>
+	
+	<!-- 文件上传 -->
+	<dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	</dependency>
+    <dependency>
+    	<groupId>commons-io</groupId>
+    	<artifactId>commons-io</artifactId>
+    </dependency>
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>jstl</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <finalName>demo-bootstrap</finalName>
