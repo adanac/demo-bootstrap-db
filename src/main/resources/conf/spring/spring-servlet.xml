@@ -119,6 +119,12 @@
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<description>Required for Freemarker to work in web tier</description>
 		<property name="configuration" ref="freemarkerConfiguration" />
+		<!-- 遇到 值 为null的对象的属性时，会返回一个空白字符串，而不会抛出异常 -->
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="classic_compatible">true</prop>
+			</props>
+		</property>
 	</bean>
 	
 	<bean id="freemarkerConfiguration"

@@ -20,7 +20,7 @@
     <dependency>
            <groupId>javax.servlet</groupId>
            <artifactId>javax.servlet-api</artifactId>
-       </dependency>
+     </dependency>
      <dependency>
 		<groupId>com.adanac.framework</groupId>
 		<artifactId>adanac-framework-common</artifactId>
@@ -87,7 +87,7 @@
     <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>dubbo</artifactId>
-    </dependency>
+        </dependency>
     <dependency>
     	<groupId>com.google.code.gson</groupId>
     	<artifactId>gson</artifactId>
